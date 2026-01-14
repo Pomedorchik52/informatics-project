@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Безопасность умного дома</title>
+    <title>Главная умного дома</title>
     <!-- Подключение Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+      /* ... существующие стили остаются без изменений ... */
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -79,11 +80,43 @@
       .bd-mode-toggle .dropdown-menu .active .bi {
         display: block !important;
       }
+      
+      /* Новые стили для умного дома */
+      .smart-home-icon {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        color: white;
+        font-size: 2.5rem;
+      }
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        color: white;
+        font-size: 1.5rem;
+      }
+      .device-card {
+        transition: transform 0.3s ease;
+      }
+      .device-card:hover {
+        transform: translateY(-5px);
+      }
     </style>
 </head>
 <body>
-    <!-- Навигационная панель -->
-     <header>
+    <!-- Навигационная панель (остается без изменений) -->
+    <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">Умный Дом</a>
@@ -93,10 +126,10 @@
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                      <a class="nav-link" href="index.html">Главная</a>
+                    <a class="nav-link active" aria-current="page" href="index.html">Главная</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="security.html">Безопасность</a>
+                    <a class="nav-link" href="securyty.html">Безопасность</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="devices.html">Устройства</a>
@@ -108,228 +141,261 @@
             </div>
         </div>
     </nav>
-     </header>
-    <!-- Мейн -->
+    </header>
+    
+    <!-- Основной контент с информацией об умном доме -->
     <main>
-      <h1 class="visually-hidden">Heroes examples</h1>
+      <!-- Герой-секция -->
       <div class="px-4 py-5 my-5 text-center">
-        <img
-          class="d-block mx-auto mb-4"
-          src="../assets/brand/bootstrap-logo.svg"
-          alt=""
-          width="72"
-          height="57"
-        />
-        <h1 class="display-5 fw-bold text-body-emphasis">Centered hero</h1>
-        <div class="col-lg-6 mx-auto">
+        <div class="smart-home-icon">
+          <i class="bi bi-house-heart"></i>
+        </div>
+        <h1 class="display-5 fw-bold text-body-emphasis">Добро пожаловать в Умный Дом</h1>
+        <div class="col-lg-8 mx-auto">
           <p class="lead mb-4">
-            Quickly design and customize responsive mobile-first sites with
-            Bootstrap, the world’s most popular front-end open source toolkit,
-            featuring Sass variables and mixins, responsive grid system,
-            extensive prebuilt components, and powerful JavaScript plugins.
+            Наша система умного дома превращает ваше жилье в интеллектуальное пространство, 
+            где технологии работают на ваш комфорт и безопасность. Управляйте освещением, 
+            климатом, безопасностью и развлечениями с любого устройства через единый интерфейс.
           </p>
           <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <button type="button" class="btn btn-primary btn-lg px-4 gap-3">
-              Primary button
-            </button>
-            <button type="button" class="btn btn-outline-secondary btn-lg px-4">
-              Secondary
-            </button>
+            <a href="devices.html" class="btn btn-primary btn-lg px-4 gap-3">
+              <i class="bi bi-play-circle me-2"></i>Начать управление
+            </a>
+            <a href="contact.html" class="btn btn-outline-secondary btn-lg px-4">
+              <i class="bi bi-info-circle me-2"></i>Подробнее
+            </a>
           </div>
         </div>
       </div>
+      
       <div class="b-example-divider"></div>
-      <div class="px-4 pt-5 my-5 text-center border-bottom">
-        <h1 class="display-4 fw-bold text-body-emphasis">
-          Centered screenshot
-        </h1>
-        <div class="col-lg-6 mx-auto">
-          <p class="lead mb-4">
-            Quickly design and customize responsive mobile-first sites with
-            Bootstrap, the world’s most popular front-end open source toolkit,
-            featuring Sass variables and mixins, responsive grid system,
-            extensive prebuilt components, and powerful JavaScript plugins.
-          </p>
-          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-            <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3">
-              Primary button
-            </button>
-            <button type="button" class="btn btn-outline-secondary btn-lg px-4">
-              Secondary
-            </button>
+      
+      <!-- Возможности умного дома -->
+      <div class="container px-4 py-5" id="features">
+        <h2 class="pb-2 text-center border-bottom">Возможности системы</h2>
+        
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+          <div class="col d-flex align-items-start">
+            <div class="feature-icon">
+              <i class="bi bi-lightbulb"></i>
+            </div>
+            <div class="ms-3">
+              <h3 class="fw-bold mb-0 fs-4">Умное освещение</h3>
+              <p>Автоматическое регулирование яркости, создание сценариев освещения, 
+              управление голосом и по расписанию. Экономьте до 40% на электроэнергии.</p>
+            </div>
           </div>
-        </div>
-        <div class="overflow-hidden" style="max-height: 30vh">
-          <div class="container px-5">
-            <img
-              src="bootstrap-docs.png"
-              class="img-fluid border rounded-3 shadow-lg mb-4"
-              alt="Example image"
-              width="700"
-              height="500"
-              loading="lazy"
-            />
+          
+          <div class="col d-flex align-items-start">
+            <div class="feature-icon">
+              <i class="bi bi-thermometer-half"></i>
+            </div>
+            <div class="ms-3">
+              <h3 class="fw-bold mb-0 fs-4">Климат-контроль</h3>
+              <p>Поддержание идеальной температуры в каждой комнате, управление 
+              кондиционерами, обогревателями и системой вентиляции.</p>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="b-example-divider"></div>
-      <div class="container col-xxl-8 px-4 py-5">
-        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-          <div class="col-10 col-sm-8 col-lg-6">
-            <img
-              src="bootstrap-themes.png"
-              class="d-block mx-lg-auto img-fluid"
-              alt="Bootstrap Themes"
-              width="700"
-              height="500"
-              loading="lazy"
-            />
-          </div>
-          <div class="col-lg-6">
-            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
-              Responsive left-aligned hero with image
-            </h1>
-            <p class="lead">
-              Quickly design and customize responsive mobile-first sites with
-              Bootstrap, the world’s most popular front-end open source toolkit,
-              featuring Sass variables and mixins, responsive grid system,
-              extensive prebuilt components, and powerful JavaScript plugins.
-            </p>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-              <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">
-                Primary
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-secondary btn-lg px-4"
-              >
-                Default
-              </button>
+          
+          <div class="col d-flex align-items-start">
+            <div class="feature-icon">
+              <i class="bi bi-shield-check"></i>
+            </div>
+            <div class="ms-3">
+              <h3 class="fw-bold mb-0 fs-4">Безопасность</h3>
+              <p>Система видеонаблюдения, умные датчики движения, контроль доступа 
+              и автоматическое уведомление о подозрительной активности.</p>
             </div>
           </div>
         </div>
       </div>
+      
       <div class="b-example-divider"></div>
+      
+      <!-- Популярные устройства -->
+      <div class="container px-4 py-5">
+        <h2 class="pb-2 text-center border-bottom">Популярные устройства</h2>
+        
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 py-5">
+          <div class="col">
+            <div class="card device-card h-100">
+              <div class="card-body">
+                <div class="feature-icon mb-3">
+                  <i class="bi bi-camera-video"></i>
+                </div>
+                <h5 class="card-title">Умная камера</h5>
+                <p class="card-text">Камеры с распознаванием лиц, ночным видением 
+                и интеллектуальным обнаружением движения.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col">
+            <div class="card device-card h-100">
+              <div class="card-body">
+                <div class="feature-icon mb-3">
+                  <i class="bi bi-door-closed"></i>
+                </div>
+                <h5 class="card-title">Умные замки</h5>
+                <p class="card-text">Открывайте и закрывайте двери удаленно, 
+                создавайте временные ключи для гостей.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col">
+            <div class="card device-card h-100">
+              <div class="card-body">
+                <div class="feature-icon mb-3">
+                  <i class="bi bi-volume-up"></i>
+                </div>
+                <h5 class="card-title">Умные колонки</h5>
+                <p class="card-text">Управление домом голосом, воспроизведение 
+                музыки во всех комнатах синхронно.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center">
+          <a href="devices.html" class="btn btn-primary btn-lg px-5">
+            <i class="bi bi-grid me-2"></i>Все устройства
+          </a>
+        </div>
+      </div>
+      
+      <div class="b-example-divider"></div>
+      
+      <!-- Преимущества -->
+      <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row align-items-center g-5 py-5">
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
+              Почему выбирают наш Умный Дом
+            </h1>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                <strong>Экономия энергии:</strong> до 30% снижение расходов на коммунальные услуги
+              </li>
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                <strong>Простая установка:</strong> большинство устройств работают по Wi-Fi
+              </li>
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                <strong>Масштабируемость:</strong> начинайте с одного устройства и расширяйте систему
+              </li>
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                <strong>Круглосуточная поддержка:</strong> наша команда всегда готова помочь
+              </li>
+            </ul>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
+              <a href="contact.html" class="btn btn-primary btn-lg px-4 me-md-2">
+                <i class="bi bi-telephone me-2"></i>Связаться с нами
+              </a>
+            </div>
+          </div>
+          <div class="col-10 col-sm-8 col-lg-6">
+            <div class="p-5 bg-light rounded-3">
+              <h4 class="text-center mb-4">Система работает с</h4>
+              <div class="row text-center">
+                <div class="col-4 mb-3">
+                  <i class="bi bi-phone fs-1"></i>
+                  <p>Смартфоны</p>
+                </div>
+                <div class="col-4 mb-3">
+                  <i class="bi bi-tablet fs-1"></i>
+                  <p>Планшеты</p>
+                </div>
+                <div class="col-4 mb-3">
+                  <i class="bi bi-smartwatch fs-1"></i>
+                  <p>Часы</p>
+                </div>
+                <div class="col-4 mb-3">
+                  <i class="bi bi-mic fs-1"></i>
+                  <p>Голос</p>
+                </div>
+                <div class="col-4 mb-3">
+                  <i class="bi bi-google fs-1"></i>
+                  <p>Google Ассистент</p>
+                </div>
+                <div class="col-4 mb-3">
+                  <i class="bi bi-alexa fs-1"></i>
+                  <p>Alexa</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="b-example-divider"></div>
+      
+      <!-- Форма быстрого старта -->
       <div class="container col-xl-10 col-xxl-8 px-4 py-5">
         <div class="row align-items-center g-lg-5 py-5">
           <div class="col-lg-7 text-center text-lg-start">
             <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">
-              Vertically centered hero sign-up form
+              Готовы начать?
             </h1>
             <p class="col-lg-10 fs-4">
-              Below is an example form built entirely with Bootstrap’s form
-              controls. Each required form group has a validation state that can
-              be triggered by attempting to submit the form without completing
-              it.
+              Оставьте свою почту и получите бесплатный план по внедрению 
+              умного дома именно для вашего жилья. Наш специалист свяжется с вами 
+              в течение 24 часов.
             </p>
           </div>
           <div class="col-md-10 mx-auto col-lg-5">
             <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
               <div class="form-floating mb-3">
                 <input
-                  type="email"
+                  type="text"
                   class="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
+                  id="floatingName"
+                  placeholder="Иван Иванов"
                 />
-                <label for="floatingInput">Email address</label>
+                <label for="floatingName">Ваше имя</label>
               </div>
               <div class="form-floating mb-3">
                 <input
-                  type="password"
+                  type="email"
                   class="form-control"
-                  id="floatingPassword"
-                  placeholder="Password"
+                  id="floatingEmail"
+                  placeholder="name@example.com"
                 />
-                <label for="floatingPassword">Password</label>
+                <label for="floatingEmail">Email адрес</label>
               </div>
-              <div class="checkbox mb-3">
-                <label>
-                  <input type="checkbox" value="remember-me" /> Remember me
-                </label>
+              <div class="form-floating mb-3">
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="floatingPhone"
+                  placeholder="+7 (999) 999-99-99"
+                />
+                <label for="floatingPhone">Телефон</label>
+              </div>
+              <div class="form-floating mb-3">
+                <select class="form-select" id="floatingSelect">
+                  <option selected>Выберите тип жилья</option>
+                  <option value="1">Квартира</option>
+                  <option value="2">Частный дом</option>
+                  <option value="3">Офис</option>
+                </select>
+                <label for="floatingSelect">Тип жилья</label>
               </div>
               <button class="w-100 btn btn-lg btn-primary" type="submit">
-                Sign up
+                Получить консультацию
               </button>
               <hr class="my-4" />
-              <small class="text-body-secondary"
-                >By clicking Sign up, you agree to the terms of use.</small
-              >
+              <small class="text-body-secondary">
+                Нажимая кнопку, вы соглашаетесь с условиями обработки персональных данных.
+              </small>
             </form>
           </div>
         </div>
       </div>
-      <div class="b-example-divider"></div>
-      <div class="container my-5">
-        <div
-          class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg"
-        >
-          <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
-            <h1 class="display-4 fw-bold lh-1 text-body-emphasis">
-              Border hero with cropped image and shadows
-            </h1>
-            <p class="lead">
-              Quickly design and customize responsive mobile-first sites with
-              Bootstrap, the world’s most popular front-end open source toolkit,
-              featuring Sass variables and mixins, responsive grid system,
-              extensive prebuilt components, and powerful JavaScript plugins.
-            </p>
-            <div
-              class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3"
-            >
-              <button
-                type="button"
-                class="btn btn-primary btn-lg px-4 me-md-2 fw-bold"
-              >
-                Primary
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-secondary btn-lg px-4"
-              >
-                Default
-              </button>
-            </div>
-          </div>
-          <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
-            <img
-              class="rounded-lg-3"
-              src="bootstrap-docs.png"
-              alt=""
-              width="720"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="b-example-divider"></div>
-      <div class="bg-dark text-secondary px-4 py-5 text-center">
-        <div class="py-5">
-          <h1 class="display-5 fw-bold text-white">Dark color hero</h1>
-          <div class="col-lg-6 mx-auto">
-            <p class="fs-5 mb-4">
-              Quickly design and customize responsive mobile-first sites with
-              Bootstrap, the world’s most popular front-end open source toolkit,
-              featuring Sass variables and mixins, responsive grid system,
-              extensive prebuilt components, and powerful JavaScript plugins.
-            </p>
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-              <button
-                type="button"
-                class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold"
-              >
-                Custom button
-              </button>
-              <button type="button" class="btn btn-outline-light btn-lg px-4">
-                Secondary
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="b-example-divider mb-0"></div>
     </main>
-
-
 
     <!-- Подвал -->
     <footer class="bg-dark text-white text-center py-3 mt-5">
@@ -338,5 +404,8 @@
 
     <!-- Подключение Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Иконки Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 </body>
 </html>
