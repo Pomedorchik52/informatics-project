@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сценарии умного дома</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+    .b-example-divider {
+      width: 100%;
+      height: 3rem;
+      background-color: #0000001a;
+      border: solid rgba(0, 0, 0, 0.15);
+      border-width: 1px 0;
+      box-shadow:
+        inset 0 0.5em 1.5em #0000001a,
+        inset 0 0.125em 0.5em #00000026;
+    }
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
+    .bi {
+      vertical-align: -0.125em;
+      fill: currentColor;
+    }
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+    .btn-bd-primary {
+      --bd-violet-bg: #712cf9;
+      --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+      --bs-btn-font-weight: 600;
+      --bs-btn-color: var(--bs-white);
+      --bs-btn-bg: var(--bd-violet-bg);
+      --bs-btn-border-color: var(--bd-violet-bg);
+      --bs-btn-hover-color: var(--bs-white);
+      --bs-btn-hover-bg: #6528e0;
+      --bs-btn-hover-border-color: #6528e0;
+      --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+      --bs-btn-active-color: var(--bs-btn-hover-color);
+      --bs-btn-active-bg: #5a23c8;
+      --bs-btn-active-border-color: #5a23c8;
+    }
+    .bd-mode-toggle {
+      z-index: 1500;
+    }
+    .bd-mode-toggle .bi {
+      width: 1em;
+      height: 1em;
+    }
+    .bd-mode-toggle .dropdown-menu .active .bi {
+      display: block !important;
+    }
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      color: white;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .smart-home-icon {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 3rem;
+      flex-shrink: 0;
+    }
+    .device-card {
+      transition: transform 0.3s ease;
+      border: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      height: 100%;
+    }
+    .device-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+    .device-card .feature-icon {
+      width: 70px;
+      height: 70px;
+      font-size: 1.8rem;
+    }
+    .device-feature-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: white;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .device-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    .device-item:hover {
+      background: #e9ecef;
+      transform: translateX(5px);
+    }
+    .device-content {
+      flex: 1;
+    }
+    .scenario-card {
+      transition: transform 0.3s ease;
+      border: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      height: 100%;
+    }
+    .scenario-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+    .scenario-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      color: white;
+      font-size: 1.8rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Умный Дом</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="securyty.html">Безопасность</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="devices.html">Устройства</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link active" aria-current="page" href="scenarios.html">Сценарии</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Контакты</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="px-4 py-5 my-5 text-center">
+      <div class="smart-home-icon">
+        <i class="bi bi-gear"></i>
+      </div>
+      <h1 class="display-5 fw-bold text-body-emphasis">Сценарии умного дома</h1>
+      <div class="col-lg-8 mx-auto">
+        <p class="lead mb-4">
+          Создавайте и выбирайте готовые сценарии для автоматизации вашего дома. От утреннего пробуждения до режима отпуска — всё под контролем.
+        </p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <a href="#create-scenario" class="btn btn-primary btn-lg px-4 gap-3">
+            <i class="bi bi-plus-circle me-2"></i>Создать сценарий
+          </a>
+          <a href="#features" class="btn btn-outline-secondary btn-lg px-4">
+            <i class="bi bi-info-circle me-2"></i>Подробнее
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="b-example-divider"></div>
+
+    <div class="container px-4 py-5" id="scenarios">
+      <h2 class="pb-2 text-center border-bottom">Популярные сценарии</h2>
+      <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+        <div class="col">
+          <div class="scenario-card card">
+            <div class="card-body text-center">
+              <div class="scenario-icon">
+                <i class="bi bi-sunrise"></i>
+              </div>
+              <h3 class="fw-bold mb-3 fs-4">Утро</h3>
+              <p>Автоматически включает свет, кофеварку и любимую музыку по расписанию.</p>
+              <ul class="list-unstyled mt-3">
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Включение освещения</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Запуск кофе</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Музыка в спальне</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Открытие штор</li>
+              </ul>
+              <a href="#" class="btn btn-primary mt-3">Выбрать</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="scenario-card card">
+            <div class="card-body text-center">
+              <div class="scenario-icon" style="background: linear-gradient(135deg, #5ee7df 0%, #b490ca 100%);">
+                <i class="bi bi-moon-stars"></i>
+              </div>
+              <h3 class="fw-bold mb-3 fs-4">Вечер</h3>
+              <p>Гасит свет, включает охрану и снижает температуру для комфортного сна.</p>
+              <ul class="list-unstyled mt-3">
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Выключение света</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Активация камер</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Климат-контроль</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Закрытие дверей</li>
+              </ul>
+              <a href="#" class="btn btn-primary mt-3">Выбрать</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="scenario-card card">
+            <div class="card-body text-center">
+              <div class="scenario-icon" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">
+                <i class="bi bi-airplane"></i>
+              </div>
+              <h3 class="fw-bold mb-3 fs-4">Отпуск</h3>
+              <p>Имитирует присутствие, управляет поливом и отправляет уведомления.</p>
+              <ul class="list-unstyled mt-3">
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Случайное освещение</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Полив растений</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Уведомления на телефон</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Энергосбережение</li>
+              </ul>
+              <a href="#" class="btn btn-primary mt-3">Выбрать</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="scenario-card card">
+            <div class="card-body text-center">
+              <div class="scenario-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                <i class="bi bi-people"></i>
+              </div>
+              <h3 class="fw-bold mb-3 fs-4">Гости</h3>
+              <p>Подготавливает дом к приёму гостей: освещение, музыка и климат.</p>
+              <ul class="list-unstyled mt-3">
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Яркое освещение</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Фоновая музыка</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Комфортная температура</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Открытие гостевой зоны</li>
+              </ul>
+              <a href="#" class="btn btn-primary mt-3">Выбрать</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="scenario-card card">
+            <div class="card-body text-center">
+              <div class="scenario-icon" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                <i class="bi bi-film"></i>
+              </div>
+              <h3 class="fw-bold mb-3 fs-4">Кино</h3>
+              <p>Создаёт атмосферу кинотеатра: приглушает свет, включает звук и экран.</p>
+              <ul class="list-unstyled mt-3">
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Приглушение света</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Включение ТВ</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Звуковая система</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Закрытие штор</li>
+              </ul>
+              <a href="#" class="btn btn-primary mt-3">Выбрать</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="scenario-card card">
+            <div class="card-body text-center">
+              <div class="scenario-icon" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                <i class="bi bi-lightning-charge"></i>
+              </div>
+              <h3 class="fw-bold mb-3 fs-4">Экономия</h3>
+              <p>Оптимизирует энергопотребление: выключает лишнее, мониторит расход.</p>
+              <ul class="list-unstyled mt-3">
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Выключение устройств</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Мониторинг энергии</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Авторегулировка климата</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Отчёты по расходу</li>
+              </ul>
+              <a href="#" class="btn btn-primary mt-3">Выбрать</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <a href="#" class="btn btn-primary btn-lg px-5">
+          <i class="bi bi-grid me-2"></i>Смотреть все сценарии
+        </a>
+      </div>
+    </div>
+    <div class="b-example-divider"></div>
+
+    
+        
+
+    
+  </main>
+
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <p>&copy; 2023 Умный Дом. Все права защищены.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
