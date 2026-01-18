@@ -4,7 +4,6 @@
       <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Безопасность умного дома</title>
-    <!-- Подключение Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         * {
@@ -577,7 +576,6 @@
     </div>
 
     <script>
-        // Элементы управления
         const temperatureSlider = document.getElementById('temperature-slider');
         const targetTempDisplay = document.getElementById('target-temp-display');
         const currentTempDisplay = document.getElementById('current-temp');
@@ -600,7 +598,6 @@
         const modeDescription = document.getElementById('mode-description');
         const saveModeBtn = document.getElementById('save-mode');
         
-        // Описания режимов
         const modeDescriptions = {
             comfort: "Поддержание оптимальной температуры и влажности для комфортного пребывания в доме.",
             economy: "Экономия энергии за счет снижения температуры на 2-3°C в неиспользуемых помещениях.",
@@ -608,7 +605,7 @@
             night: "Понижение температуры в спальнях для комфортного сна."
         };
         
-        // Названия режимов
+
         const modeNames = {
             comfort: "Комфорт",
             economy: "Эконом",
@@ -616,7 +613,6 @@
             night: "Ночной"
         };
         
-        // Обновление температуры
         temperatureSlider.addEventListener('input', function() {
             targetTempDisplay.textContent = `${this.value}°C`;
         });
@@ -625,7 +621,7 @@
             const targetTemp = temperatureSlider.value;
             currentTempDisplay.textContent = targetTemp;
             
-            // Имитация процесса изменения температуры
+
             heatingStatus.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Изменение...';
             heatingStatus.className = 'status-indicator status-off';
             
@@ -641,13 +637,11 @@
                     heatingStatus.className = 'status-indicator status-on';
                 }
                 
-                // Показать уведомление
                 showNotification(`Температура установлена на ${targetTemp}°C`);
             }, 1500);
         });
         
         autoTempBtn.addEventListener('click', function() {
-            // Автоматическая настройка температуры
             temperatureSlider.value = 21.5;
             targetTempDisplay.textContent = "21.5°C";
             currentTempDisplay.textContent = "21.5";
@@ -655,7 +649,6 @@
             showNotification("Автоматическая настройка температуры применена");
         });
         
-        // Обновление влажности
         humiditySlider.addEventListener('input', function() {
             targetHumidityDisplay.textContent = `${this.value}%`;
         });
@@ -664,7 +657,6 @@
             const targetHumidity = humiditySlider.value;
             humidityValue.textContent = `${targetHumidity}%`;
             
-            // Имитация процесса изменения влажности
             humidityStatus.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Изменение...';
             humidityStatus.className = 'status-indicator status-off';
             
@@ -676,7 +668,7 @@
             }, 1500);
         });
         
-        // Управление очистителем воздуха
+
         let airPurifierOn = false;
         
         toggleAirPurifierBtn.addEventListener('click', function() {
@@ -701,12 +693,11 @@
             }
         });
         
-        // Выбор режима работы
         modeButtons.forEach(button => {
             button.addEventListener('click', function() {
-                // Удаляем активный класс у всех кнопок
+
                 modeButtons.forEach(btn => btn.classList.remove('active'));
-                // Добавляем активный класс текущей кнопке
+
                 this.classList.add('active');
                 
                 const mode = this.getAttribute('data-mode');
@@ -720,20 +711,16 @@
             showNotification(`Режим "${modeNames[activeMode]}" сохранен и применен`);
         });
         
-        // Управление режимами в комнатах
         document.querySelectorAll('.room-card .mode-selector .mode-btn').forEach(button => {
             button.addEventListener('click', function() {
                 const parentSelector = this.parentElement;
-                // Удаляем активный класс у всех кнопок в этой комнате
                 parentSelector.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-                // Добавляем активный класс текущей кнопке
                 this.classList.add('active');
             });
         });
         
-        // Функция показа уведомления
         function showNotification(message) {
-            // Создаем элемент уведомления
+
             const notification = document.createElement('div');
             notification.style.cssText = `
                 position: fixed;
@@ -753,12 +740,11 @@
             
             document.body.appendChild(notification);
             
-            // Показываем уведомление
+
             setTimeout(() => {
                 notification.style.transform = 'translateX(0)';
             }, 10);
             
-            // Убираем уведомление через 3 секунды
             setTimeout(() => {
                 notification.style.transform = 'translateX(150%)';
                 setTimeout(() => {
@@ -767,31 +753,30 @@
             }, 3000);
         }
         
-        // Имитация изменения показаний с течением времени
+ 
         function simulateReadings() {
-            // Случайные небольшие изменения температуры
+            
             const currentTemp = parseFloat(currentTempDisplay.textContent);
             const variation = (Math.random() - 0.5) * 0.3;
             const newTemp = Math.max(16, Math.min(30, currentTemp + variation));
             currentTempDisplay.textContent = newTemp.toFixed(1);
             
-            // Случайные изменения влажности
+            
             const currentHumidity = parseInt(humidityValue.textContent);
             const humidityVariation = Math.floor((Math.random() - 0.5) * 3);
             const newHumidity = Math.max(20, Math.min(70, currentHumidity + humidityVariation));
             humidityValue.textContent = `${newHumidity}%`;
             
-            // Периодическое изменение качества воздуха
+            
             if (Math.random() > 0.7 && !airPurifierOn) {
                 const qualities = ["Хорошо", "Удовлетворительно", "Плохо"];
                 airQualityValue.textContent = qualities[Math.floor(Math.random() * qualities.length)];
             }
             
-            // Обновляем каждые 10 секунд
             setTimeout(simulateReadings, 10000);
         }
         
-        // Запускаем имитацию изменений
+
         setTimeout(simulateReadings, 10000);
     </script>
 </body>
