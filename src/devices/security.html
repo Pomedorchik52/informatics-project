@@ -5,76 +5,510 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Безопасность умного дома</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        :root {
+            --primary: #2A5CAA;
+            --primary-light: #3A7BDA;
+            --secondary: #10B981;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+            --gray: #6B7280;
+            --gray-light: #E5E7EB;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
+        body {
+            background-color: #F3F4F6;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            color: var(--primary);
+            font-size: 28px;
+        }
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .logo-subtext {
+            color: var(--gray);
+            font-size: 14px;
+            font-weight: 400;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .card-icon {
+            font-size: 24px;
+            color: var(--primary);
+        }
+        .status-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .status-value {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .alert-display, .access-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .alert-value, .access-value {
+            font-size: 32px;
+            font-weight: 600;
+        }
+        .alert-value {
+            color: var(--danger);
+        }
+        .access-value {
+            color: var(--secondary);
+        }
+        .slider-container {
+            margin: 20px 0;
+        }
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .slider {
+            width: 100%;
+            height: 10px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--gray-light);
+            outline: none;
+            border-radius: 5px;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+        }
+        .btn-secondary {
+            background-color: var(--gray-light);
+            color: var(--dark);
+        }
+        .btn-secondary:hover {
+            background-color: #D1D5DB;
+        }
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: #DC2626;
+        }
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .status-on {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+        }
+        .status-off {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+        .rooms {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .room-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .room-card:hover {
+            transform: translateY(-3px);
+        }
+        .room-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .room-title {
+            font-weight: 600;
+        }
+        .room-status {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .mode-selector {
+            display: flex;
+            background-color: var(--gray-light);
+            border-radius: 8px;
+            padding: 4px;
+            margin-top: 15px;
+        }
+        .mode-btn {
+            flex: 1;
+            padding: 8px;
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+        .mode-btn.active {
+            background-color: white;
+            box-shadow: var(--shadow);
+        }
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .schedule-table th, .schedule-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        .schedule-table th {
+            font-weight: 600;
+            color: var(--gray);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-light);
+            color: var(--gray);
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .controls {
+                flex-direction: column;
+            }
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Умный Дом</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Главная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="security.html">Безопасность</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="devices.html">Устройства</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Контакты</a>
-                    </li>
-                </ul>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div>
+                    <div class="logo-text">Умный дом</div>
+                    <div class="logo-subtext">Система безопасности</div>
+                </div>
             </div>
-        </div>
-    </nav>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Безопасность умного дома</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <h2>Защита вашего дома</h2>
-                <p>
-                    Современные технологии умного дома обеспечивают высокий уровень безопасности. 
-                    Системы видеонаблюдения, умные замки и датчики движения помогают защитить ваш дом от несанкционированного доступа.
-                </p>
-                <ul>
-                    <li>Умные камеры с функцией записи в облако.</li>
-                    <li>Датчики движения и открытия дверей/окон.</li>
-                    <li>Умные замки с удаленным управлением.</li>
-                    <li>Системы оповещения через мобильные приложения.</li>
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <img src="https://via.placeholder.com/600x400" class="img-fluid" alt="Умная безопасность">
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-md-8 offset-md-2">
-                <h2 class="text-center">Свяжитесь с нами</h2>
-                <form>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Ваше имя</label>
-                        <input type="text" class="form-control" id="name" required>
+        </header>
+        <main>
+            <div class="dashboard">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Статус безопасности</div>
+                        <div class="card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
                     </div>
-                    <div class="mb-3"> 
-                        <label for="email" class="form-label">Ваш email</label>
-                        <input type="email" class="form-control" id="email" required>
+                    <div class="status-display">
+                        <div>
+                            <span class="status-value">Защищено</span>
+                        </div>
+                        <div class="status-indicator status-on">
+                            <i class="fas fa-lock"></i> Активно
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Сообщение</label>
-                        <textarea class="form-control" id="message" rows="4" required></textarea>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Чувствительность датчиков</span>
+                            <span>Средняя</span>
+                        </div>
+                        <input type="range" min="1" max="10" step="1" value="5" class="slider">
                     </div>
-                    <button type="submit" class="btn btn-primary">Отправить</button>
-                </form>
+                    <div class="controls">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-check"></i> Применить
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-magic"></i> Авто
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Оповещения и доступ</div>
+                        <div class="card-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    </div>
+                    <div class="alert-display">
+                        <div>
+                            <div>Активные оповещения</div>
+                            <div class="alert-value">0</div>
+                        </div>
+                        <div class="status-indicator status-off">
+                            <i class="fas fa-exclamation-triangle"></i> Тревога
+                        </div>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Уровень оповещений</span>
+                            <span>Средний</span>
+                        </div>
+                        <input type="range" min="1" max="5" step="1" value="3" class="slider">
+                    </div>
+                    <div class="access-display">
+                        <div>
+                            <div>Статус доступа</div>
+                            <div class="access-value">Все двери заперты</div>
+                        </div>
+                        <div class="status-indicator status-on">
+                            <i class="fas fa-key"></i> Замки
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-check"></i> Применить
+                        </button>
+                        <button class="btn btn-danger">
+                            <i class="fas fa-power-off"></i> Активировать тревогу
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Режимы безопасности</div>
+                        <div class="card-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                    </div>
+                    <div class="mode-selector">
+                        <div class="mode-btn active" data-mode="home">Дома</div>
+                        <div class="mode-btn" data-mode="away">Вне дома</div>
+                        <div class="mode-btn" data-mode="night">Ночной</div>
+                        <div class="mode-btn" data-mode="vacation">Отпуск</div>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <div style="font-weight: 600; margin-bottom: 10px;">Текущий режим: <span>Дома</span></div>
+                        <div style="color: var(--gray); font-size: 14px;">
+                            Стандартный режим для пребывания дома с базовой защитой.
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i> Сохранить настройки
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Безопасность по комнатам</div>
+                    <div class="card-icon">
+                        <i class="fas fa-door-open"></i>
+                    </div>
+                </div>
+                <div class="rooms">
+                    <div class="room-card">
+                        <div class="room-header">
+                            <div class="room-title">Гостиная</div>
+                            <div class="room-status">Защищено</div>
+                        </div>
+                        <div>Датчики движения: Нет</div>
+                        <div>Камера: <span class="status-indicator status-on">Вкл</span></div>
+                        <div class="mode-selector">
+                            <div class="mode-btn active">Авто</div>
+                            <div class="mode-btn">Высокая</div>
+                            <div class="mode-btn">Низкая</div>
+                        </div>
+                    </div>
+                    <div class="room-card">
+                        <div class="room-header">
+                            <div class="room-title">Спальня</div>
+                            <div class="room-status">Защищено</div>
+                        </div>
+                        <div>Датчики движения: Нет</div>
+                        <div>Камера: <span class="status-indicator status-off">Выкл</span></div>
+                        <div class="mode-selector">
+                            <div class="mode-btn">Авто</div>
+                            <div class="mode-btn active">Высокая</div>
+                            <div class="mode-btn">Низкая</div>
+                        </div>
+                    </div>
+                    <div class="room-card">
+                        <div class="room-header">
+                            <div class="room-title">Кухня</div>
+                            <div class="room-status">Защищено</div>
+                        </div>
+                        <div>Датчики движения: Нет</div>
+                        <div>Камера: <span class="status-indicator status-on">Вкл</span></div>
+                        <div class="mode-selector">
+                            <div class="mode-btn active">Авто</div>
+                            <div class="mode-btn">Высокая</div>
+                            <div class="mode-btn">Низкая</div>
+                        </div>
+                    </div>
+                    <div class="room-card">
+                        <div class="room-header">
+                            <div class="room-title">Кабинет</div>
+                            <div class="room-status">Защищено</div>
+                        </div>
+                        <div>Датчики движения: Нет</div>
+                        <div>Камера: <span class="status-indicator status-off">Выкл</span></div>
+                        <div class="mode-selector">
+                            <div class="mode-btn">Авто</div>
+                            <div class="mode-btn">Высокая</div>
+                            <div class="mode-btn active">Низкая</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Расписание безопасности</div>
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                </div>
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>День</th>
+                            <th>Утро (7:00-9:00)</th>
+                            <th>День (9:00-18:00)</th>
+                            <th>Вечер (18:00-23:00)</th>
+                            <th>Ночь (23:00-7:00)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Пн-Пт</td>
+                            <td>Дома (Базовая)</td>
+                            <td>Вне дома (Полная)</td>
+                            <td>Дома (Базовая)</td>
+                            <td>Ночной (Высокая)</td>
+                        </tr>
+                        <tr>
+                            <td>Сб-Вс</td>
+                            <td>Дома (Базовая)</td>
+                            <td>Дома (Базовая)</td>
+                            <td>Дома (Базовая)</td>
+                            <td>Ночной (Высокая)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="controls">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Добавить правило
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-edit"></i> Редактировать расписание
+                    </button>
+                </div>
+            </div>
+        </main>
+        <footer class="footer">
+            <p>Система умного дома "Безопасность" • Версия 2.1.4 • Последнее обновление: сегодня 14:30</p>
+            <p>Все устройства в сети • Активные датчики: 12</p>
+        </footer>
     </div>
-    <footer class="bg-dark text-white text-center py-3 mt-5">
-        <p>&copy; 2023 Умный Дом. Все права защищены.</p>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
